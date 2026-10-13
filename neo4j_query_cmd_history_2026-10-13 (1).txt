@@ -1,0 +1,242 @@
+MATCH p=()-[]->() RETURN p LIMIT 25;
+
+MATCH p=()-[]->() RETURN p LIMIT 25;
+
+MATCH p=()-[]->() RETURN p LIMIT 25;
+
+MATCH p=()-[:BELONGS_TO]->() RETURN p LIMIT 25;
+
+MATCH (n:Student) RETURN n LIMIT 25;
+
+MATCH (n:Faculty) RETURN n LIMIT 25;
+
+MATCH (n:Department) RETURN n LIMIT 25;
+
+MATCH (n:Course) RETURN n LIMIT 25;
+
+MATCH (n:Course) RETURN n LIMIT 25;
+
+MATCH p=()-[:TEACHES]->() RETURN p LIMIT 25;
+
+MATCH p=()-[:OFFERS]->() RETURN p LIMIT 25;
+
+MATCH p=()-[:ENROLLED_IN]->() RETURN p LIMIT 25;
+
+MATCH p=()-[:ENROLLED_IN]->() RETURN p LIMIT 25;
+
+MATCH p=()-[:BELONGS_TO]->() RETURN p LIMIT 25;
+
+MATCH p=()-[:TEACHES]->() RETURN p LIMIT 25;
+
+MATCH p=()-[:OFFERS]->() RETURN p LIMIT 25;
+
+MATCH p=()-[:ENROLLED_IN]->() RETURN p LIMIT 25;
+
+MATCH p=()-[:BELONGS_TO]->() RETURN p LIMIT 25;
+
+MATCH (n:Department) RETURN n LIMIT 25;
+
+MATCH (n:Course) RETURN n LIMIT 25;
+
+MATCH p=()-[:TEACHES]->() RETURN p LIMIT 25;
+
+MATCH p=()-[:OFFERS]->() RETURN p LIMIT 25;
+
+MATCH p=()-[:ENROLLED_IN]->() RETURN p LIMIT 25;
+
+MATCH p=()-[:BELONGS_TO]->() RETURN p LIMIT 25;
+
+MATCH (n:Student) RETURN n LIMIT 25;
+
+MATCH (n:Faculty) RETURN n LIMIT 25;
+
+MATCH (n:Department) RETURN n LIMIT 25;
+
+MATCH (n:Course) RETURN n LIMIT 25;
+
+MATCH (n) 
+WHERE n.email IS NOT NULL
+RETURN DISTINCT "node" as entity, n.email AS email LIMIT 25
+UNION ALL 
+MATCH ()-[r]-() 
+WHERE r.email IS NOT NULL
+RETURN DISTINCT "relationship" AS entity, r.email AS email LIMIT 25;
+
+MATCH (n) 
+WHERE n.designation IS NOT NULL
+RETURN DISTINCT "node" as entity, n.designation AS designation LIMIT 25
+UNION ALL 
+MATCH ()-[r]-() 
+WHERE r.designation IS NOT NULL
+RETURN DISTINCT "relationship" AS entity, r.designation AS designation LIMIT 25;
+
+MATCH (n) 
+WHERE n.departmentId IS NOT NULL
+RETURN DISTINCT "node" as entity, n.departmentId AS departmentId LIMIT 25
+UNION ALL 
+MATCH ()-[r]-() 
+WHERE r.departmentId IS NOT NULL
+RETURN DISTINCT "relationship" AS entity, r.departmentId AS departmentId LIMIT 25;
+
+MATCH (n) 
+WHERE n.credits IS NOT NULL
+RETURN DISTINCT "node" as entity, n.credits AS credits LIMIT 25
+UNION ALL 
+MATCH ()-[r]-() 
+WHERE r.credits IS NOT NULL
+RETURN DISTINCT "relationship" AS entity, r.credits AS credits LIMIT 25;
+
+MATCH (n) 
+WHERE n.courseCode IS NOT NULL
+RETURN DISTINCT "node" as entity, n.courseCode AS courseCode LIMIT 25
+UNION ALL 
+MATCH ()-[r]-() 
+WHERE r.courseCode IS NOT NULL
+RETURN DISTINCT "relationship" AS entity, r.courseCode AS courseCode LIMIT 25;
+
+MATCH (n) 
+WHERE n.building IS NOT NULL
+RETURN DISTINCT "node" as entity, n.building AS building LIMIT 25
+UNION ALL 
+MATCH ()-[r]-() 
+WHERE r.building IS NOT NULL
+RETURN DISTINCT "relationship" AS entity, r.building AS building LIMIT 25;
+
+MATCH (n) 
+WHERE n.academicYear IS NOT NULL
+RETURN DISTINCT "node" as entity, n.academicYear AS academicYear LIMIT 25
+UNION ALL 
+MATCH ()-[r]-() 
+WHERE r.academicYear IS NOT NULL
+RETURN DISTINCT "relationship" AS entity, r.academicYear AS academicYear LIMIT 25;
+
+MATCH p=()-[:TEACHES]->() RETURN p LIMIT 25;
+
+MATCH p=()-[:OFFERS]->() RETURN p LIMIT 25;
+
+MATCH p=()-[:ENROLLED_IN]->() RETURN p LIMIT 25;
+
+MATCH p=()-[:BELONGS_TO]->() RETURN p LIMIT 25;
+
+MATCH (n:Student) RETURN n LIMIT 25;
+
+MATCH (n:Faculty) RETURN n LIMIT 25;
+
+MATCH (n:Department) RETURN n LIMIT 25;
+
+MATCH (n:Course) RETURN n LIMIT 25;
+
+MATCH (n)
+RETURN count(n) AS TotalNodes;
+
+MATCH (s:Student)-[:ENROLLED_IN]->(g:Course),
+      (s)-[:ENROLLED_IN]->(other:Course)
+WHERE g.title = 'Graph Analytics'
+  AND other.courseCode <> g.courseCode
+RETURN DISTINCT s.name, other.title AS OtherCourse;
+
+MATCH (s:Student)-[r:ENROLLED_IN]->(c:Course)
+WHERE c.title = 'NoSQL Databases'
+RETURN s.name, r.semesterEnrolled, r.grade;
+
+MATCH (d:Department)-[:OFFERS]->(c:Course)
+WHERE d.name = 'Information Technology'
+RETURN d.name, c.title;
+
+MATCH (s:Student)-[:BELONGS_TO]->(d:Department)
+WHERE d.name = 'Computer Science'
+RETURN s.name, d.name;
+
+MATCH (s:Student)-[:ENROLLED_IN]->(c:Course)
+WHERE c.title = 'Graph Analytics'
+RETURN s.name, c.title;
+
+MATCH (f:Faculty)-[:TEACHES]->(c:Course)
+WHERE f.name = 'Dr. Meera Sen'
+RETURN f.name, c.title;
+
+MATCH (c:Course)
+WHERE c.credits > 3
+RETURN c.courseCode, c.title, c.credits;
+
+MATCH (s:Student)
+WHERE s.semester = 5
+RETURN s.studentId, s.name, s.semester;
+
+MATCH (a)-[r]->(b)
+RETURN DISTINCT
+labels(a) AS FromNode,
+type(r) AS Relationship,
+labels(b) AS ToNode;
+
+MATCH (n)
+RETURN labels(n) AS NodeLabel, count(n) AS TotalNodes;
+
+MATCH (n)-[r]->(m)
+RETURN n, r, m;
+
+MATCH (d:Department), (c:Course)
+WHERE
+(d.departmentId = 'D101' AND c.courseCode IN ['CS302','CS303','CS305'])
+OR
+(d.departmentId = 'D102' AND c.courseCode IN ['CS301','CS304'])
+MERGE (d)-[:OFFERS]->(c);
+
+MATCH (s:Student), (d:Department)
+WHERE
+(s.studentId IN ['S101','S102','S103'] AND d.departmentId = 'D101')
+OR
+(s.studentId IN ['S104','S105'] AND d.departmentId = 'D102')
+MERGE (s)-[:BELONGS_TO]->(d);
+
+MATCH (f:Faculty), (c:Course)
+WHERE
+(f.facultyId = 'F101' AND c.courseCode IN ['CS302','CS305'])
+OR
+(f.facultyId = 'F102' AND c.courseCode IN ['CS301','CS303','CS304'])
+MERGE (f)-[r:TEACHES]->(c)
+SET r.academicYear = '2026-27';
+
+MATCH (s:Student), (c:Course)
+WHERE
+(s.studentId = 'S101' AND c.courseCode IN ['CS301','CS302','CS305'])
+OR
+(s.studentId = 'S102' AND c.courseCode IN ['CS301','CS303'])
+OR
+(s.studentId = 'S103' AND c.courseCode IN ['CS302','CS304'])
+OR
+(s.studentId = 'S104' AND c.courseCode IN ['CS303','CS305'])
+OR
+(s.studentId = 'S105' AND c.courseCode IN ['CS301','CS304'])
+MERGE (s)-[r:ENROLLED_IN]->(c)
+SET r.semesterEnrolled = s.semester,
+    r.grade = 'Not Published';
+
+CREATE
+(:Department {departmentId:'D101', name:'Computer Science', building:'Block A'}),
+(:Department {departmentId:'D102', name:'Information Technology', building:'Block B'});
+
+CREATE
+(:Course {courseCode:'CS301', title:'Graph Analytics', credits:3, level:'Advanced'}),
+(:Course {courseCode:'CS302', title:'Database Management Systems', credits:4, level:'Core'}),
+(:Course {courseCode:'CS303', title:'Data Mining', credits:3, level:'Advanced'}),
+(:Course {courseCode:'CS304', title:'Big Data Analytics', credits:4, level:'Advanced'}),
+(:Course {courseCode:'CS305', title:'NoSQL Databases', credits:3, level:'Core'});
+
+CREATE
+(:Faculty {facultyId:'F101', name:'Dr. Meera Sen', designation:'Associate Professor', specialization:'Database Systems'}),
+(:Faculty {facultyId:'F102', name:'Dr. Amit Roy', designation:'Assistant Professor', specialization:'Data Analytics'});
+
+CREATE
+(:Student {studentId:'S101', name:'Aarav Sharma', semester:5, email:'aarav@univ.edu'}),
+(:Student {studentId:'S102', name:'Priya Das', semester:5, email:'priya@univ.edu'}),
+(:Student {studentId:'S103', name:'Rahul Verma', semester:3, email:'rahul@univ.edu'}),
+(:Student {studentId:'S104', name:'Sneha Roy', semester:3, email:'sneha@univ.edu'}),
+(:Student {studentId:'S105', name:'Arjun Patel', semester:5, email:'arjun@univ.edu'});
+
+CREATE
+(:Student {studentId:'S101', name:'Aarav Sharma', semester:5, email:'aarav@univ.edu'}),
+(:Student {studentId:'S102', name:'Priya Das', semester:5, email:'priya@univ.edu'}),
+(:Student {studentId:'S103', name:'Rahul Verma', semester:3, email:'rahul@univ.edu'}),
+(:Student {studentId:'S104', name:'Sneha Roy', semester:3, email:'sneha@univ.edu'}),
+(:Student {studentId:'S105', name:'Arjun Patel', semester:5, email:'arjun@univ.edu'});
